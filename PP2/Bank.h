@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <vector>
+#include <memory>
 
 #include "BankClient.h"
 
@@ -8,11 +9,11 @@ class CBank
 {
 public:
 	CBank();
-	CBankClient* CreateClient();
+	std::shared_ptr<CBankClient> CreateClient();
 	void UpdateClientBalance(CBankClient& client, int value);
 
 private:
-	std::vector<CBankClient> m_clients;
+	std::vector<std::shared_ptr<CBankClient>> m_clients;
 	int m_totalBalance;
 
 	int GetTotalBalance();

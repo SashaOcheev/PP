@@ -2,16 +2,16 @@
 
 CBank::CBank()
 {
-	m_clients = std::vector<CBankClient>();
+	m_clients = std::vector<std::shared_ptr<CBankClient>>();
 	m_totalBalance = 0;
 }
 
 
-CBankClient* CBank::CreateClient()
+std::shared_ptr<CBankClient> CBank::CreateClient()
 {
 	unsigned clientId = unsigned(m_clients.size());
-	CBankClient* client = new CBankClient(this, clientId);
-	m_clients.push_back(*client);
+    std::shared_ptr<CBankClient> client(new CBankClient(this, clientId));
+	m_clients.push_back(client);
 	return client;
 }
 

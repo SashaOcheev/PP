@@ -5,13 +5,15 @@
 int main()
 {
 	CBank* bank = new CBank();
-	CBankClient* client1 = bank->CreateClient();
-	CBankClient* client2 = bank->CreateClient();
+	auto client1 = bank->CreateClient();
+	auto client2 = bank->CreateClient();
 
 	// TODO: WaitForMultipleObjects
 	while (true)
 	{
 	}
+
+    delete bank;
 
     return 0;
 }
