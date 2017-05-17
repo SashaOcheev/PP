@@ -16,6 +16,8 @@ private:
 
 	friend CBank;
 
+    HANDLE handle;
+
 	CBank *m_bank;
 	unsigned m_id;
 };

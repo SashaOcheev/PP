@@ -12,6 +12,7 @@ std::shared_ptr<CBankClient> CBank::CreateClient()
 	unsigned clientId = unsigned(m_clients.size());
     std::shared_ptr<CBankClient> client(new CBankClient(this, clientId));
 	m_clients.push_back(client);
+    m_threads.push_back(client->handle);
 	return client;
 }
 
@@ -42,6 +43,11 @@ void CBank::UpdateClientBalance(CBankClient &client, int value)
 void CBank::SetPrimitive(Primitive * primitive)
 {
     m_primitive = primitive;
+}
+
+void CBank::Wait()
+{
+    WaitForMultipleObjects(m_threads.size(), m_threads.data(), TRUE, INFINITE);
 }
 
 
