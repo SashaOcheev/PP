@@ -22,7 +22,7 @@ DWORD WINAPI CBankClient::ThreadFunction(LPVOID lpParam)
 	srand(client->m_id);
 	while (true)
 	{
-		Sleep(GetSleepDuration(client));
+		//Sleep(GetSleepDuration(client));
 		client->m_bank->UpdateClientBalance(*client, GetBalanceChangeValue());
 	}
 	return 0;
@@ -36,7 +36,7 @@ unsigned CBankClient::GetSleepDuration(CBankClient *client)
 }
 
 
-unsigned CBankClient::GetBalanceChangeValue()
+int CBankClient::GetBalanceChangeValue()
 {
 	// -100 .. 100
 	return rand() % 201 - 100;
