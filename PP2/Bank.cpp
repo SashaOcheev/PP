@@ -18,6 +18,7 @@ std::shared_ptr<CBankClient> CBank::CreateClient()
 
 void CBank::UpdateClientBalance(CBankClient &client, int value)
 {
+    m_primitive->Enter();
 	int totalBalance = GetTotalBalance();
 	std::cout << "Client " << client.GetId() << " initiates reading total balance. Total = " << totalBalance << "." << std::endl;
 	
@@ -35,6 +36,12 @@ void CBank::UpdateClientBalance(CBankClient &client, int value)
 	}
 
 	SetTotalBalance(totalBalance);
+    m_primitive->Release();
+}
+
+void CBank::SetPrimitive(Primitive * primitive)
+{
+    m_primitive = primitive;
 }
 
 
