@@ -3,29 +3,49 @@
 
 #include <memory>
 #include <algorithm>
+#include <string>
+#include <stdexcept>
 
 #include "BankClient.h"
-#include "Mutex.h"
-#include "Semaphore.h"
+#include "Primitive.h"
 
 using namespace std;
 
-int main()
+unique_ptr<Primitive> GetPrimitive(string type)
 {
-	CBank* bank = new CBank();
+    if (type == "mutex")
+        return Primitive::CreatePrimitive(PrimitiveType::MUTEX);
+    if (type == "critical_section")
+        return Primitive::CreatePrimitive(PrimitiveType::CRITICAL_SECTION);
+    if (type == "semaphore")
+        return Primitive::CreatePrimitive(PrimitiveType::SEMAPHORE);
+    if (type == "event")
+        return Primitive::CreatePrimitive(PrimitiveType::EVENT);
     
-    auto mutex = std::move(make_unique<Mutex>());
-    auto semaphore = std::move(make_unique<Semaphore>());
+    throw domain_error("enter mutex, critical_section, semaphore or event");
+}
 
-    bank->SetPrimitive(semaphore.get());
+int main(int argc, char* argv[])
+{
+    if (argc != 2)
+    {
+        return 1;
+    }
+    if (!strcmp(argv[1], "?"))
+    {
+        std::cout << "enter mutex, critical_section, semaphore or event" << std::endl;
+    }
+    
+    auto primitive = GetPrimitive(argv[1]);
+
+	CBank* bank = new CBank();
+
+    auto primitive = Primitive::CreatePrimitive(PrimitiveType::CRITICAL_SECTION);
+    bank->SetPrimitive(primitive.get());
 
 	auto client1 = bank->CreateClient();
 	auto client2 = bank->CreateClient();
 
-	// TODO: WaitForMultipleObjects
-	//while (true)
-	//{
-	//}
     while (true)
     {
         bank->Wait();

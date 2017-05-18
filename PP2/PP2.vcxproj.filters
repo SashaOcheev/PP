@@ -77,5 +77,8 @@
     <ClCompile Include="CriticalSection.cpp">
       <Filter>Source Files\Primitives</Filter>
     </ClCompile>
+    <ClCompile Include="Primitive.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
