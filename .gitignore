@@ -5,3 +5,6 @@
 /PP2/*.vcxproj
 /PP2/x64/Debug/PP2.tlog
 /*.opendb
+/PP2/x64/Release/PP2.tlog/*.tlog
+/x64/Release
+/PP2/x64/Release/PP2.tlog/*.lastbuildstate

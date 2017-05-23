@@ -40,8 +40,6 @@ int main(int argc, char* argv[])
 
 	CBank* bank = new CBank();
     
-    auto primitive = Primitive::CreatePrimitive(PrimitiveType::CRITICAL_SECTION);
-    
     bank->SetPrimitive(primitive.get());
 
 	auto client1 = bank->CreateClient();
