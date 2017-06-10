@@ -51,10 +51,7 @@ int main(int argc, char* argv[])
     auto client1 = bank->CreateClient();
     auto client2 = bank->CreateClient();
 
-    while (true)
-    {
-        bank->Wait();
-    }
+    bank->Wait();
 
     delete bank;
 
