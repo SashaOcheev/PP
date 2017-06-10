@@ -64,5 +64,5 @@ void CBank::SetTotalBalance(int value)
 
 void CBank::SomeLongOperations()
 {
-    Sleep(2000);
+    Sleep(200);
 }
