@@ -4,19 +4,21 @@
 
 Event::Event()
 {
+    event = CreateEvent(NULL, false, true, NULL);
 }
 
 void Event::Enter()
 {
-    event = CreateEvent(NULL, false, true, NULL);
+    WaitForSingleObject(event, INFINITE);
 }
 
 void Event::Release()
 {
-    WaitForSingleObject(event, INFINITE);
+    SetEvent(event);
 }
 
 
 Event::~Event()
 {
+    CloseHandle(event);
 }

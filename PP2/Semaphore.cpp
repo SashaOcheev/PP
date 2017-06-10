@@ -4,19 +4,22 @@
 
 Semaphore::Semaphore()
 {
+    semaphore = CreateSemaphore(NULL, 1, 1, NULL);
 }
 
 void Semaphore::Enter()
 {
-    semaphore = CreateSemaphore(NULL, 1, 1, NULL);
+    
+    WaitForSingleObject(semaphore, INFINITE);
 }
 
 void Semaphore::Release()
 {
-    WaitForSingleObject(semaphore, INFINITE);
+    ReleaseSemaphore(semaphore, 1, NULL);
 }
 
 
 Semaphore::~Semaphore()
 {
+    CloseHandle(semaphore);
 }

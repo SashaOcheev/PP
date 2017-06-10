@@ -3,12 +3,13 @@
 
 
 CriticalSection::CriticalSection()
-{  
+{
+    InitializeCriticalSection(&criticalSection);
 }
 
 void CriticalSection::Enter()
 {
-    InitializeCriticalSection(&criticalSection);
+    EnterCriticalSection(&criticalSection);
 }
 
 void CriticalSection::Release()

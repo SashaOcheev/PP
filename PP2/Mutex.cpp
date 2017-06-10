@@ -2,19 +2,21 @@
 
 Mutex::Mutex()
 {
+    mutex = CreateMutex(NULL, false, NULL);
 }
 
 void Mutex::Enter()
 {
-    mutex = CreateMutex(NULL, false, NULL);
+    WaitForSingleObject(mutex, INFINITE);
 }
 
 void Mutex::Release()
 {
-    WaitForSingleObject(mutex, INFINITE);
+    ReleaseMutex(mutex);
 }
 
 
 Mutex::~Mutex()
 {
+    CloseHandle(mutex);
 }

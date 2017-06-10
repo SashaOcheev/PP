@@ -21,29 +21,35 @@ unique_ptr<Primitive> GetPrimitive(string type)
         return Primitive::CreatePrimitive(PrimitiveType::SEMAPHORE);
     if (type == "event")
         return Primitive::CreatePrimitive(PrimitiveType::EVENT);
-    
+
     throw domain_error("enter mutex, critical_section, semaphore or event");
 }
 
 int main(int argc, char* argv[])
 {
-    if (argc != 2)
+    if (!strcmp(argv[1], "?") || argc != 2)
     {
+        cout << "enter mutex, critical_section, semaphore or event" << endl;
         return 1;
     }
-    if (!strcmp(argv[1], "?"))
-    {
-        std::cout << "enter mutex, critical_section, semaphore or event" << std::endl;
-    }
-    
-    auto primitive = GetPrimitive(argv[1]);
 
-	CBank* bank = new CBank();
-    
+    unique_ptr<Primitive> primitive;
+    try
+    {
+        primitive = move(GetPrimitive(argv[1]));
+    }
+    catch (domain_error &ex)
+    {
+        cout << ex.what() << endl;
+        return 1;
+    }
+
+    CBank* bank = new CBank();
+
     bank->SetPrimitive(primitive.get());
 
-	auto client1 = bank->CreateClient();
-	auto client2 = bank->CreateClient();
+    auto client1 = bank->CreateClient();
+    auto client2 = bank->CreateClient();
 
     while (true)
     {
